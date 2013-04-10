@@ -25,7 +25,12 @@ class ReleasableException extends RuntimeException
      */
     public function __construct(array $options = array())
     {
+        foreach(array('message'=>'','code'=>0,'previous'=>null) as $key=>$default){
+          $$key = isset($options[$key]) ? $option[$key] : $default;
+        }
+        parent::__construct($message, $code, $previous);
         $this->options = $options;
+
     }
 
     /**
