@@ -3,6 +3,8 @@
 namespace SlmQueueBeanstalkd\Controller;
 
 use Exception;
+use SlmQueueBeanstalkd\Job\Exception\BuryableException;
+use SlmQueueBeanstalkd\Job\Exception\ReleasableException;
 use Zend\Mvc\Controller\AbstractActionController;
 
 /**
@@ -22,11 +24,15 @@ class WorkerController extends AbstractActionController
             'timeout' => $this->params('timeout', null)
         );
 
-        try {
+//        try {
             $count = $worker->processQueue($queueName, array_filter($options));
-        } catch(Exception $exception) {
-            return "\nAn error occurred " . $exception->getMessage() . "\n\n";
-        }
+//        } catch( BuryableException $e){
+//          throw $e;
+//        }catch ( ReleasableException $e){
+//          throw $e;
+//        } catch(Exception $exception) {
+//            return "\nAn error occurred " . $exception->getMessage() . "\n\n";
+//        }
 
         return sprintf(
             "\nWork for queue %s is done, %s jobs were processed\n\n",
