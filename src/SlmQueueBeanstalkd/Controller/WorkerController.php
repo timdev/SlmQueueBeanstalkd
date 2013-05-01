@@ -24,15 +24,7 @@ class WorkerController extends AbstractActionController
             'timeout' => $this->params('timeout', null)
         );
 
-//        try {
-            $count = $worker->processQueue($queueName, array_filter($options));
-//        } catch( BuryableException $e){
-//          throw $e;
-//        }catch ( ReleasableException $e){
-//          throw $e;
-//        } catch(Exception $exception) {
-//            return "\nAn error occurred " . $exception->getMessage() . "\n\n";
-//        }
+        $count = $worker->processQueue($queueName, array_filter($options));
 
         return sprintf(
             "\nWork for queue %s is done, %s jobs were processed\n\n",
